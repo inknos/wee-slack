@@ -2271,9 +2271,9 @@ class SlackChannel(SlackChannelCommon):
                 prepend = ""
         elif self.type == "mpim":
             if style == "sidebar":
-                prepend = "@"
+                prepend = config.mpim_sidebar_name_prefix
             else:
-                prepend = ""
+                prepend = config.mpim_name_prefix
         else:
             prepend = "#"
 
@@ -6901,6 +6901,12 @@ class PluginConfig(object):
         "shared_name_prefix": Setting(
             default="%", desc="The prefix of buffer names for shared channels."
         ),
+        "mpim_sidebar_name_prefix": Setting(
+            default="@", desc="The prefix of buffer names for mpim in the sidebar."
+        ),
+        "mpim_name_prefix": Setting(
+            default="", desc="The prefix of buffer names for mpim."
+        ),
         "short_buffer_names": Setting(
             default="false",
             desc="Use `foo.#channel` rather than `foo.slack.com.#channel` as the"
@@ -7052,6 +7058,8 @@ class PluginConfig(object):
     get_render_bold_as = get_string
     get_render_italic_as = get_string
     get_shared_name_prefix = get_string
+    get_mpim_name_prefix = get_string
+    get_mpim_sidebar_name_prefix = get_string
     get_slack_timeout = get_int
     get_unfurl_auto_link_display = get_string
 
